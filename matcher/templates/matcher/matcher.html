@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NGO Matcher</title>
+</head>
+<body>
+    <h2>NGO Matcher - Find Support</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="query">Enter your need:</label><br>
+        <textarea id="query" name="query" rows="4" cols="50">{{ query }}</textarea><br><br>
+        <button type="submit">Match NGOs</button>
+    </form>
+
+    {% if results %}
+        <h3>Top Matches</h3>
+        <pre>{{ results }}</pre>
+    {% elif query %}
+        <p>No matches found.</p>
+    {% endif %}
+</body>
+</html>

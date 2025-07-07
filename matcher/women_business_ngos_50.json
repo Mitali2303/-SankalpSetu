@@ -1,0 +1,352 @@
+[
+  {
+    "name": "Self Employed Women’s Association (SEWA)",
+    "location": "Ahmedabad, Gujarat",
+    "website": "https://www.sewa.org",
+    "services": "Vocational training, micro-credit, cooperatives, financial inclusion, advocacy.",
+    "description": "Founded 1972 by Ela Bhatt, SEWA empowers 3 million+ informal women workers for income security and leadership."
+  },
+  {
+    "name": "Swayam Shikshan Prayog (SSP)",
+    "location": "Pune, Maharashtra",
+    "website": "https://swayamshikshanprayog.org",
+    "services": "Entrepreneurship training, micro‑finance, market access for women-led clean energy & agri businesses.",
+    "description": "Supports 350 k+ rural women to build enterprises in energy, farming & health; UN-awarded."
+  },
+  {
+    "name": "Seva Bharati",
+    "location": "Multiple states",
+    "website": "https://en.wikipedia.org/wiki/Seva_Bharati",
+    "services": "Vocational training (handicrafts, tailoring, computers), cottage industry support.",
+    "description": "Runs 1,400+ training centres for rural women’s skill development and entrepreneurship."
+  },
+  {
+    "name": "Parivartan Sandesh Foundation",
+    "location": "Delhi",
+    "website": "http://www.parivartansandeshfoundation.com",
+    "services": "Vocational training (‘Saksham Nari’) for unemployed urban women.",
+    "description": "Empowers urban women with marketable skills, counselling & self‑employment support."
+  },
+  {
+    "name": "Kherwadi Social Welfare Association (Yuva Parivartan)",
+    "location": "Mumbai, Maharashtra",
+    "website": "http://www.yuvaparivartan.org",
+    "services": "Vocational training in trades and handicrafts, entrepreneurship support.",
+    "description": "Empowers marginalised youth & women in Mumbai slums via livelihood training."
+  },
+  {
+    "name": "Make Love Not Scars",
+    "location": "Delhi & multiple",
+    "website": "https://www.mlns.in",
+    "services": "Vocational training, legal aid, counselling for acid-attack survivors.",
+    "description": "Helps survivors rebuild livelihood and confidence through skill training."
+  },
+  {
+    "name": "Stop Acid Attacks",
+    "location": "Delhi & multiple",
+    "website": "https://stopacidattacks.com",
+    "services": "Vocational rehab, legal support, skill workshops for survivors.",
+    "description": "Supports acid attack survivors to gain financial independence."
+  },
+  {
+    "name": "Sabala Organization",
+    "location": "Bijapur, Karnataka",
+    "website": "https://en.wikipedia.org/wiki/Sabala_Organization",
+    "services": "Training Lambani women in embroidery, weaving, SHGs, microfinance.",
+    "description": "Empowers tribal women via craft skills and self-help groups."
+  },
+  {
+    "name": "Sambhali Trust",
+    "location": "Jodhpur, Rajasthan",
+    "website": "https://sambhali.org",
+    "services": "Sewing & embroidery training, microfinance, boutique sales.",
+    "description": "Supports Dalit women with vocational training and leadership."
+  },
+  {
+    "name": "All India Women’s Conference (AIWC)",
+    "location": "New Delhi",
+    "website": "http://aiwc.org.in",
+    "services": "Literacy, craft training, microcredit, solar-drier business for rural women.",
+    "description": "Since 1927, AIWC works for women’s rights, education, entrepreneurship and health."
+  },
+  {
+    "name": "Digital Empowerment Foundation",
+    "location": "New Delhi",
+    "website": "https://defindia.org",
+    "services": "Digital literacy, rural entrepreneurship training, digital microenterprises for women.",
+    "description": "Empowers women through access to digital tools and ICT-based skill development in rural India."
+  },
+  {
+    "name": "Azad Foundation",
+    "location": "New Delhi",
+    "website": "https://azadfoundation.com",
+    "services": "Livelihood training for women to become professional drivers and entrepreneurs.",
+    "description": "Trains resource-poor women for employment as drivers with feminist values of dignity, rights and inclusion."
+  },
+  {
+    "name": "Educate Girls",
+    "location": "Rajasthan and 3 states",
+    "website": "https://www.educategirls.ngo",
+    "services": "Education access, life skills and vocational readiness for adolescent girls.",
+    "description": "Works in educationally backward districts to improve girl child education and vocational skill access."
+  },
+  {
+    "name": "Barefoot College",
+    "location": "Tilonia, Rajasthan",
+    "website": "https://www.barefootcollege.org",
+    "services": "Solar engineering, business training for rural women, night school education.",
+    "description": "Trains grandmothers and women from rural communities in solar entrepreneurship and livelihoods."
+  },
+  {
+    "name": "UDYOGINI",
+    "location": "Delhi (pan-India)",
+    "website": "https://udyogini.org",
+    "services": "Entrepreneurship development, goatery, herbal products, and value chain training for women.",
+    "description": "Supports tribal and rural women in becoming micro-entrepreneurs across sectors."
+  },
+  {
+    "name": "Aga Khan Rural Support Programme (India)",
+    "location": "Ahmedabad, Gujarat",
+    "website": "https://www.akdn.org",
+    "services": "SHG formation, agriculture and entrepreneurship support for women farmers.",
+    "description": "Facilitates rural development and women’s agency through livelihood training and SHGs."
+  },
+  {
+    "name": "Grameen Foundation India",
+    "location": "Delhi",
+    "website": "https://grameenfoundation.in",
+    "services": "Digital financial literacy, entrepreneurship for women SHGs, digital microfinance.",
+    "description": "Helps women in underserved communities access credit, digital literacy, and business opportunities."
+  },
+  {
+    "name": "Navjyoti India Foundation",
+    "location": "Delhi NCR",
+    "website": "https://www.navjyoti.org.in",
+    "services": "Women skill training in fashion design, beautician, computers and self-employment.",
+    "description": "Founded by Dr. Kiran Bedi, provides education, skills and self-reliance support for women and youth."
+  },
+  {
+    "name": "Asha Kiran Society",
+    "location": "Koraput, Odisha",
+    "website": "http://www.ashakiran.in",
+    "services": "Women and tribal livelihood development through sustainable enterprises.",
+    "description": "Works in tribal Odisha to promote gender-inclusive business development and community leadership."
+  },
+  {
+    "name": "Vatsalya",
+    "location": "Lucknow, Uttar Pradesh",
+    "website": "https://vatsalya.org.in",
+    "services": "Entrepreneurship, tailoring, beautician training for adolescent girls and women.",
+    "description": "Focuses on women empowerment and skill development to promote financial independence."
+  },
+  {
+    "name": "Kalinga Institute of Social Sciences (KISS)",
+    "location": "Bhubaneswar, Odisha",
+    "website": "https://kiss.ac.in",
+    "services": "Vocational education and entrepreneurship training for tribal women and girls.",
+    "description": "World’s largest residential institute for tribal children, supporting women’s economic inclusion."
+  },
+  {
+    "name": "ActionAid India",
+    "location": "Pan-India",
+    "website": "https://www.actionaidindia.org",
+    "services": "Livelihood training, SHGs, entrepreneurship for women in slums and rural areas.",
+    "description": "Works to empower marginalized women with skills and self-help group enterprises."
+  },
+  {
+    "name": "Snehalaya",
+    "location": "Ahmednagar, Maharashtra",
+    "website": "https://www.snehalaya.org",
+    "services": "Vocational training and shelter for women rescued from trafficking and abuse.",
+    "description": "Provides care, training and livelihood programs for women in distress and vulnerable groups."
+  },
+  {
+    "name": "Pradan",
+    "location": "Jharkhand, Chhattisgarh, Odisha",
+    "website": "https://www.pradan.net",
+    "services": "Supports SHG-based entrepreneurship in agriculture, poultry, and non-farm enterprises.",
+    "description": "Facilitates economic self-reliance among tribal and rural women through SHGs and enterprise support."
+  },
+  {
+    "name": "Lend A Hand India",
+    "location": "Pune, Maharashtra",
+    "website": "https://www.lendahandindia.org",
+    "services": "Vocational education in secondary schools with strong focus on girls and employment linkage.",
+    "description": "Enables women and girls in secondary schools to access real-world livelihood training."
+  },
+  {
+    "name": "Gram Tarang Employability Training Services",
+    "location": "Odisha",
+    "website": "https://gramtarang.org",
+    "services": "Vocational training for tribal and rural youth, especially women.",
+    "description": "Partners with NSDC and industry to deliver job-linked training to underserved populations."
+  },
+  {
+    "name": "Mahila Housing Trust",
+    "location": "Ahmedabad, Gujarat",
+    "website": "https://www.mahilahousingtrust.org",
+    "services": "Entrepreneurship, climate resilience and financial literacy for low-income women.",
+    "description": "Supports women-led housing, climate, and business initiatives in slums and low-income settlements."
+  },
+  {
+    "name": "Jatan Sansthan",
+    "location": "Rajasthan",
+    "website": "https://jatansansthan.org",
+    "services": "Skill building for adolescent girls, menstrual health awareness, gender equity.",
+    "description": "Rural NGO enabling girls to build confidence and self-reliance through vocational programs."
+  },
+  {
+    "name": "Vimochana",
+    "location": "Bangalore, Karnataka",
+    "website": "https://vimochana.org",
+    "services": "Women’s rights, livelihood training, advocacy, and support for domestic violence survivors.",
+    "description": "One of India’s oldest feminist groups supporting women through rights-based livelihood support."
+  },
+  {
+    "name": "Apne Aap Women Worldwide",
+    "location": "Bihar and Delhi",
+    "website": "https://apneaap.org",
+    "services": "Education and skills for girls and women to exit prostitution and trafficking.",
+    "description": "Empowers marginalised women and children through education, sewing, food processing and small business."
+  },
+  {
+    "name": "Breakthrough India",
+    "location": "New Delhi",
+    "website": "https://inbreakthrough.org",
+    "services": "Gender rights, community media training for women, and leadership.",
+    "description": "Trains young women as change leaders through communication, leadership and advocacy skills."
+  },
+  {
+    "name": "Goonj",
+    "location": "Pan-India",
+    "website": "https://goonj.org",
+    "services": "Cloth for work, menstruation dignity, and rural entrepreneurship for women.",
+    "description": "Provides women with tools and platforms to lead village development while earning income."
+  },
+  {
+    "name": "Shakti Shalini",
+    "location": "Delhi",
+    "website": "https://shaktishalini.org",
+    "services": "Shelter, vocational skills, trauma healing, and business counselling for violence survivors.",
+    "description": "Helps survivors of domestic abuse rebuild life through vocational and psychosocial support."
+  },
+  {
+    "name": "Vanangana",
+    "location": "Chitrakoot, Uttar Pradesh",
+    "website": "https://vanangana.in",
+    "services": "Leadership and microenterprise support for rural Dalit and tribal women.",
+    "description": "Uses feminist empowerment to support women’s rights and livelihood initiatives."
+  },
+  {
+    "name": "Chaitanya WISE Project",
+    "location": "Pune, Maharashtra",
+    "website": "https://chaitanyaindia.org",
+    "services": "Women entrepreneurship and SHG banking models.",
+    "description": "Aims to build financial capacity of women-led self-help groups through training and incubation."
+  },
+  {
+    "name": "Jhpiego India",
+    "location": "Delhi (Pan-India)",
+    "website": "https://www.jhpiego.org/countries/india",
+    "services": "Health skills, digital health, women empowerment for ASHA workers and caregivers.",
+    "description": "Helps women become para-health entrepreneurs using digital and technical training."
+  },
+  {
+    "name": "Sristi Foundation",
+    "location": "Tamil Nadu",
+    "website": "https://sristivillage.org",
+    "services": "Inclusive training for women with disabilities, organic farming and craft-based livelihoods.",
+    "description": "Enables differently-abled women through farming, dairy and skill-based vocational models."
+  },
+  {
+    "name": "TIDE India",
+    "location": "Bangalore",
+    "website": "https://www.tide-india.org",
+    "services": "Green livelihoods and energy entrepreneurship for rural women.",
+    "description": "Trains women in rural and tribal areas to become energy entrepreneurs with eco-tech tools."
+  },
+  {
+    "name": "Manjari Foundation",
+    "location": "Rajasthan",
+    "website": "https://manjarifoundation.in",
+    "services": "SHG-based business promotion, digital finance training and enterprise incubation.",
+    "description": "Builds women’s collectives and SHGs to promote inclusive economic empowerment."
+  },
+  {
+    "name": "Bharatiya Yuva Shakti Trust (BYST)",
+    "location": "Delhi",
+    "website": "https://byst.org.in",
+    "services": "Mentorship and business funding for underprivileged youth and women.",
+    "description": "Promotes self-employment among youth and women through low-interest loans and expert mentoring."
+  },
+  {
+    "name": "SWATI",
+    "location": "Odisha",
+    "website": "https://www.swatiodisha.org",
+    "services": "Training and marketing support for rural women in handicrafts, agriculture and food processing.",
+    "description": "Creates SHG-led enterprises in tribal Odisha with backward and forward market linkages."
+  },
+  {
+    "name": "NavGurukul",
+    "location": "Bangalore, Delhi",
+    "website": "https://www.navgurukul.org",
+    "services": "Free coding education and employment pathways for underprivileged girls.",
+    "description": "Helps girls from underserved communities break poverty cycles via full-time residential tech training."
+  },
+  {
+    "name": "Sakha Consulting Wings",
+    "location": "Delhi",
+    "website": "https://www.sakhaconsultingwings.com",
+    "services": "Women chauffeur training and employment for vulnerable women.",
+    "description": "Social enterprise enabling women to become professional drivers with dignity and security."
+  },
+  {
+    "name": "Samarpan Foundation",
+    "location": "Delhi & Mumbai",
+    "website": "https://samarpanfoundation.org",
+    "services": "Vocational training for women in tailoring, jewelry making, and self-reliance programs.",
+    "description": "Runs income-generation training for women in urban slums and semi-urban areas."
+  },
+  {
+    "name": "Majlis Legal Centre",
+    "location": "Mumbai",
+    "website": "https://majlislaw.com",
+    "services": "Legal aid and vocational upskilling for domestic violence survivors.",
+    "description": "Supports women with legal guidance and income-generating skills for reintegration."
+  },
+  {
+    "name": "Shanti Ashram",
+    "location": "Coimbatore, Tamil Nadu",
+    "website": "https://www.shantiashram.org",
+    "services": "Vocational training, microfinance, and entrepreneurial support for rural women.",
+    "description": "A Gandhian NGO advancing sustainable livelihoods through value-based entrepreneurship."
+  },
+  {
+    "name": "Lok Swasthya SEWA Trust",
+    "location": "Gujarat",
+    "website": "https://www.sewabharat.org/lok-swasthya-sewa-trust",
+    "services": "Health entrepreneurs, midwives and ASHA worker enterprise models.",
+    "description": "Empowers women to deliver affordable health services while earning through trained entrepreneurship."
+  },
+  {
+    "name": "Maher Ashram",
+    "location": "Pune, Maharashtra",
+    "website": "https://www.maherashram.org",
+    "services": "Shelter and income generation training for destitute and abandoned women.",
+    "description": "Offers care and skill-based rehabilitation for women, enabling self-employment and dignity."
+  },
+  {
+    "name": "Janodaya Trust",
+    "location": "Bangalore",
+    "website": "https://www.janodaya.org",
+    "services": "Women-led hospitality enterprises, food production units and micro-credits.",
+    "description": "Fosters inclusive economic empowerment through sustainable women-owned businesses."
+  },
+  {
+    "name": "Shakti Foundation",
+    "location": "Kolkata, West Bengal",
+    "website": "http://shaktifoundation.in",
+    "services": "Microcredit, small business support, group enterprises for women.",
+    "description": "Creates economic opportunities for underserved women through financial services and training."
+  }
+]
