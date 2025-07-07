@@ -6,15 +6,161 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Lightbulb, TrendingUp, Award, BookOpen, Calendar, IndianRupee, Target, CheckCircle } from "lucide-react"
+import { useEffect, useState } from "react"
+import { useBusinessIdeas, useSchemeMatches, useLearningProgress } from "@/hooks/useApi"
 
 export default function DashboardPage() {
+  const [user, setUser] = useState<any>(null)
+  const [userId, setUserId] = useState<string>("")
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user")
+      if (userData) {
+        const parsed = JSON.parse(userData)
+        setUser(parsed)
+        setUserId(parsed.id || parsed.user_id || parsed._id || "")
+      }
+    }
+  }, [])
+
+  const { ideas, loading: ideasLoading } = useBusinessIdeas(userId)
+  const { matches, loading: matchesLoading } = useSchemeMatches(userId)
+  const { progress, loading: progressLoading } = useLearningProgress(userId)
+
+  // Calculate stats
+  const ideasCount = ideas?.length || 0
+  const schemesCount = matches?.length || 0
+  // Avg score (if idea.score exists)
+  const avgScore = ideasCount > 0 ? (ideas.reduce((sum: any, i: any) => sum + (i.score || 0), 0) / ideasCount).toFixed(1) : "-"
+  // Learning progress (if progress is an object with module progress values)
+  const progressVals = Object.values(progress || {}) as number[]
+  const learningProgress = progressVals.length > 0 ? Math.round((progressVals.reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0) / (progressVals.length * 100)) * 100) : 0
+
+  // Helper: Render ideas dynamically
+  function renderIdeas() {
+    if (ideasLoading) return <div>Loading...</div>;
+    if (!ideas || ideas.length === 0) return <div>No ideas submitted yet.</div>;
+    return (
+      <div className="grid lg:grid-cols-2 gap-6">
+        {ideas.map((idea: any, idx: number) => (
+          <Card key={idea.id || idx} className="border-green-200/50 dark:border-green-800/50">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <Lightbulb className="h-5 w-5 text-green-600" />
+                  {idea.title || idea.name || `Idea #${idx + 1}`}
+                </CardTitle>
+                {idea.score && (
+                  <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50">Score: {idea.score}/10</Badge>
+                )}
+              </div>
+              <CardDescription>{idea.description || idea.summary || "No description."}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Example: Progress, Revenue, Investment, etc. */}
+              {idea.progress && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Business Plan Progress</span>
+                    <span>{idea.progress}%</span>
+                  </div>
+                  <Progress value={idea.progress} className="h-2" />
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                {idea.revenue && (
+                  <div>
+                    <p className="text-muted-foreground">Est. Monthly Revenue</p>
+                    <p className="font-semibold flex items-center">
+                      <IndianRupee className="h-4 w-4" />
+                      {idea.revenue}
+                    </p>
+                  </div>
+                )}
+                {idea.investment && (
+                  <div>
+                    <p className="text-muted-foreground">Investment Needed</p>
+                    <p className="font-semibold flex items-center">
+                      <IndianRupee className="h-4 w-4" />
+                      {idea.investment}
+                    </p>
+                  </div>
+                )}
+              </div>
+              <Button className="w-full bg-transparent" variant="outline">
+                View Full Business Plan
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // Helper: Render schemes dynamically
+  function renderSchemes() {
+    if (matchesLoading) return <div>Loading...</div>;
+    if (!matches || matches.length === 0) return <div>No schemes matched yet.</div>;
+    return (
+      <div className="grid lg:grid-cols-2 gap-6">
+        {matches.map((scheme: any, idx: number) => (
+          <Card key={scheme.id || idx} className="border-blue-200/50 dark:border-blue-800/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="h-5 w-5 text-blue-600" />
+                {scheme.schemeName || scheme.name || `Scheme #${idx + 1}`}
+              </CardTitle>
+              <CardDescription>{scheme.description || scheme.summary || "No description."}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {scheme.matchScore && (
+                <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50">
+                  {scheme.matchScore}% Match
+                </Badge>
+              )}
+              {/* Add more scheme details as needed */}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // Helper: Render learning progress dynamically
+  function renderLearning() {
+    if (progressLoading) return <div>Loading...</div>;
+    const modules = Object.entries(progress || {});
+    if (modules.length === 0) return <div>No learning modules yet.</div>;
+    return (
+      <div className="grid lg:grid-cols-2 gap-6">
+        {modules.map(([moduleId, value]: [string, any], idx: number) => (
+          <Card key={moduleId} className="border-pink-200/50 dark:border-pink-800/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-pink-600" />
+                Module {moduleId}
+              </CardTitle>
+              <CardDescription>Progress: {value}%</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Progress value={value} className="h-2" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 py-8">
       <div className="container mx-auto px-4">
         <div className="mb-8">
           <h1 className="text-3xl lg:text-4xl font-bold mb-4">
             Welcome back,{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Sanjaya</span>
+            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              {user?.first_name || user?.username || "Entrepreneur"}
+            </span>
           </h1>
           <p className="text-lg text-muted-foreground">
             Track your entrepreneurial journey and discover new opportunities
@@ -28,7 +174,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Ideas Submitted</p>
-                  <p className="text-2xl font-bold text-purple-600">3</p>
+                  <p className="text-2xl font-bold text-purple-600">{ideasLoading ? "..." : ideasCount}</p>
                 </div>
                 <Lightbulb className="h-8 w-8 text-purple-600" />
               </div>
@@ -40,7 +186,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Avg. Score</p>
-                  <p className="text-2xl font-bold text-pink-600">8.2/10</p>
+                  <p className="text-2xl font-bold text-pink-600">{ideasLoading ? "..." : avgScore !== "-" ? `${avgScore}/10` : "-"}</p>
                 </div>
                 <TrendingUp className="h-8 w-8 text-pink-600" />
               </div>
@@ -52,7 +198,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Schemes Found</p>
-                  <p className="text-2xl font-bold text-purple-600">12</p>
+                  <p className="text-2xl font-bold text-purple-600">{matchesLoading ? "..." : schemesCount}</p>
                 </div>
                 <Award className="h-8 w-8 text-purple-600" />
               </div>
@@ -64,7 +210,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Learning Progress</p>
-                  <p className="text-2xl font-bold text-pink-600">65%</p>
+                  <p className="text-2xl font-bold text-pink-600">{progressLoading ? "..." : `${learningProgress}%`}</p>
                 </div>
                 <BookOpen className="h-8 w-8 text-pink-600" />
               </div>
@@ -80,222 +226,11 @@ export default function DashboardPage() {
             <TabsTrigger value="progress">Progress</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="ideas" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              <Card className="border-green-200/50 dark:border-green-800/50">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <Lightbulb className="h-5 w-5 text-green-600" />
-                      Tailoring Business
-                    </CardTitle>
-                    <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50">Score: 8.5/10</Badge>
-                  </div>
-                  <CardDescription>Women's tailoring and alteration services in rural area</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Business Plan Progress</span>
-                      <span>85%</span>
-                    </div>
-                    <Progress value={85} className="h-2" />
-                  </div>
+          <TabsContent value="ideas" className="space-y-6">{renderIdeas()}</TabsContent>
 
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Est. Monthly Revenue</p>
-                      <p className="font-semibold flex items-center">
-                        <IndianRupee className="h-4 w-4" />
-                        15,000
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Investment Needed</p>
-                      <p className="font-semibold flex items-center">
-                        <IndianRupee className="h-4 w-4" />
-                        25,000
-                      </p>
-                    </div>
-                  </div>
+          <TabsContent value="schemes" className="space-y-6">{renderSchemes()}</TabsContent>
 
-                  <Button className="w-full bg-transparent" variant="outline">
-                    View Full Business Plan
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-yellow-200/50 dark:border-yellow-800/50">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <Lightbulb className="h-5 w-5 text-yellow-600" />
-                      Organic Farming
-                    </CardTitle>
-                    <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50">Score: 7.8/10</Badge>
-                  </div>
-                  <CardDescription>Organic vegetable farming and direct sales</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Analysis Progress</span>
-                      <span>60%</span>
-                    </div>
-                    <Progress value={60} className="h-2" />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Seasonal Revenue</p>
-                      <p className="font-semibold flex items-center">
-                        <IndianRupee className="h-4 w-4" />
-                        20,000
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Land Required</p>
-                      <p className="font-semibold">2 Acres</p>
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-transparent" variant="outline">
-                    Complete Analysis
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="schemes" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              <Card className="border-blue-200/50 dark:border-blue-800/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award className="h-5 w-5 text-blue-600" />
-                    PMEGP Scheme
-                  </CardTitle>
-                  <CardDescription>Prime Minister's Employment Generation Programme</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50">
-                      95% Match for Tailoring Business
-                    </Badge>
-                  </div>
-
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>Loan up to ₹25 lakhs</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>15-35% subsidy available</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>For women entrepreneurs</span>
-                    </div>
-                  </div>
-
-                  <Button className="w-full">Apply Now</Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-purple-200/50 dark:border-purple-800/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award className="h-5 w-5 text-purple-600" />
-                    Mudra Loan
-                  </CardTitle>
-                  <CardDescription>Micro Units Development & Refinance Agency</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/50">
-                      88% Match for Organic Farming
-                    </Badge>
-                  </div>
-
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>Loan up to ₹10 lakhs</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>No collateral required</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span>Quick processing</span>
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-transparent" variant="outline">
-                    Learn More
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="learning" className="space-y-6">
-            <div className="grid lg:grid-cols-3 gap-6">
-              <Card className="border-green-200/50 dark:border-green-800/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-green-600" />
-                    Business Basics
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Progress value={100} className="h-2" />
-                  <p className="text-sm text-muted-foreground">
-                    Completed: Understanding market research, customer identification
-                  </p>
-                  <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50">Completed</Badge>
-                </CardContent>
-              </Card>
-
-              <Card className="border-yellow-200/50 dark:border-yellow-800/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-yellow-600" />
-                    Financial Planning
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Progress value={65} className="h-2" />
-                  <p className="text-sm text-muted-foreground">
-                    In Progress: Budgeting, profit calculation, expense tracking
-                  </p>
-                  <Button size="sm" className="w-full">
-                    Continue Learning
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-gray-200/50 dark:border-gray-800/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-gray-600" />
-                    Digital Marketing
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Progress value={0} className="h-2" />
-                  <p className="text-sm text-muted-foreground">
-                    Not Started: Social media, online presence, customer engagement
-                  </p>
-                  <Button size="sm" variant="outline" className="w-full bg-transparent">
-                    Start Module
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+          <TabsContent value="learning" className="space-y-6">{renderLearning()}</TabsContent>
 
           <TabsContent value="progress" className="space-y-6">
             <Card className="border-purple-200/50 dark:border-purple-800/50">

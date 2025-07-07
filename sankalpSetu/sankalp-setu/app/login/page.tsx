@@ -105,6 +105,18 @@ export default function LoginPage() {
       if (!response.ok) {
         throw new Error(data.error || "Login failed")
       }
+      // Save user info to localStorage
+      if (typeof window !== "undefined") {
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user))
+        }
+        if (data.access) {
+          localStorage.setItem("access_token", data.access)
+        }
+        if (data.refresh) {
+          localStorage.setItem("refresh_token", data.refresh)
+        }
+      }
       setLoginMessage("Login successful! Redirecting...")
       setLoginError(null)
       setTimeout(() => router.push("/dashboard"), 1000)

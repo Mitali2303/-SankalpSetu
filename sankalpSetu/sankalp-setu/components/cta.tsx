@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Lightbulb, Users, ArrowRight } from "lucide-react"
@@ -47,7 +48,7 @@ export function CTA() {
 
               <div className="pt-8 border-t border-purple-200/50 dark:border-purple-800/50">
                 <p className="text-sm text-muted-foreground">
-                  Available in 15+ Indian languages • Privacy-first approach • No technical skills required
+                  Available in diffrent Indian languages • Privacy-first approach • No technical skills required
                 </p>
               </div>
             </div>

@@ -1,25 +1,25 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mic, Brain, FileText, Globe, Shield, TrendingUp } from "lucide-react"
+import { Users, Brain, Globe, Shield, TrendingUp } from "lucide-react"
 
 const features = [
   {
-    icon: Mic,
-    title: "Voice & Text Input",
-    description: "Submit your business ideas through voice or text in your native language",
+    icon: Users,
+    title: "ask for help",
+    description: "Connect with trusted NGOs for support, collaboration, or contribution.",
     color: "text-purple-600",
   },
   {
     icon: Brain,
-    title: "AI-Powered Analysis",
-    description: "Get intelligent feedback and feasibility scoring for your business ideas",
+    title: "AI-Mentor",
+    description: "Submit your idea, get AI insights, and generate a business plan-all in one place.",
     color: "text-pink-600",
   },
-  {
-    icon: FileText,
-    title: "Business Plan Generator",
-    description: "Receive structured business plans with targets, profits, and risk analysis",
-    color: "text-purple-600",
-  },
+  // {
+  //   icon: FileText,
+  //   title: "Business Plan Generator",
+  //   description: "Receive structured business plans with targets, profits, and risk analysis",
+  //   color: "text-purple-600",
+  // },
   {
     icon: Globe,
     title: "Government Scheme Matching",

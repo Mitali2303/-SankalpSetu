@@ -1,14 +1,36 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Menu, Lightbulb, Users, BookOpen, Award } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("user")
+      if (userData) {
+        setUser(JSON.parse(userData))
+      } else {
+        setUser(null)
+      }
+    }
+  }, [])
+
+  function handleLogout() {
+    localStorage.removeItem("user")
+    localStorage.removeItem("access_token")
+    localStorage.removeItem("refresh_token")
+    setUser(null)
+    router.push("/")
+  }
 
   const navigation = [
     { name: "Home", href: "/", icon: Lightbulb },
@@ -16,7 +38,6 @@ export function Navbar() {
     { name: "Dashboard", href: "/dashboard", icon: Users },
     { name: "Learning", href: "/learning", icon: BookOpen },
     { name: "Schemes", href: "/schemes", icon: Award },
-    { name: "Login", href: "/login", icon: Users },
   ]
 
   return (
@@ -45,6 +66,23 @@ export function Navbar() {
                 <span>{item.name}</span>
               </Link>
             ))}
+            {!user && (
+              <Link
+                href="/login"
+                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Users className="h-4 w-4" />
+                <span>Login</span>
+              </Link>
+            )}
+            {user && (
+              <div className="flex items-center space-x-3">
+                <span className="font-semibold text-purple-500">{user.first_name || user.username}</span>
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -70,6 +108,24 @@ export function Navbar() {
                       <span>{item.name}</span>
                     </Link>
                   ))}
+                  {!user && (
+                    <Link
+                      href="/login"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center space-x-3 text-lg font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted"
+                    >
+                      <Users className="h-5 w-5" />
+                      <span>Login</span>
+                    </Link>
+                  )}
+                  {user && (
+                    <div className="flex items-center space-x-3">
+                      <span className="font-semibold text-purple-500">{user.first_name || user.username}</span>
+                      <Button variant="outline" size="sm" onClick={() => { setIsOpen(false); handleLogout(); }}>
+                        Logout
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>

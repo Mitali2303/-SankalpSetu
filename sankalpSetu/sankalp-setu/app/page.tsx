@@ -1,7 +1,7 @@
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
 import { HowItWorks } from "@/components/how-it-works"
-import { Impact } from "@/components/impact"
+// import { Impact } from "@/components/impact"
 import { CTA } from "@/components/cta"
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
       <Hero />
       <Features />
       <HowItWorks />
-      <Impact />
+      {/* <Impact /> */}
       <CTA />
     </main>
   )

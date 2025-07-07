@@ -1,6 +1,11 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Mic, MessageSquare, Lightbulb, Users } from "lucide-react"
+import { Mic, MessageSquare, Lightbulb, Users, ArrowRight } from "lucide-react"
 import Link from "next/link"
+
+const WELCOME_TITLE = "Welcome to Your Entrepreneurial Journey";
+const WELCOME_SUBTITLE = "Join thousands of women entrepreneurs transforming their ideas into successful businesses";
 
 export function Hero() {
   return (
@@ -15,45 +20,24 @@ export function Hero() {
                 <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Setu</span>
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl">
-                Empowering rural women entrepreneurs with AI-powered business guidance in their native language
+              {WELCOME_SUBTITLE}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Link href="/submit-idea">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                <Link href="/submit-idea">
                   <Lightbulb className="mr-2 h-5 w-5" />
                   Submit Your Idea
-                </Button>
-              </Link>
-              <Link href="/dashboard">
-                <Button size="lg" variant="outline">
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-purple-200 dark:border-purple-800 bg-transparent">
+                <Link href="/dashboard">
                   <Users className="mr-2 h-5 w-5" />
-                  Explore Dashboard
-                </Button>
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">10K+</div>
-                <div className="text-sm text-muted-foreground">Ideas Submitted</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-pink-600">15</div>
-                <div className="text-sm text-muted-foreground">Languages</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">500+</div>
-                <div className="text-sm text-muted-foreground">Schemes Matched</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-pink-600">95%</div>
-                <div className="text-sm text-muted-foreground">Success Rate</div>
-              </div>
+                  Explore Platform
+                </Link>
+              </Button>
             </div>
           </div>
 
@@ -65,8 +49,8 @@ export function Hero() {
                     <Mic className="h-6 w-6 text-purple-600" />
                   </div>
                   <div>
-                    <div className="font-medium">Voice Input</div>
-                    <div className="text-sm text-muted-foreground">Speak in your language</div>
+                    <div className="font-medium">Ask for Help</div>
+                    <div className="text-sm text-muted-foreground">Conecte with NGOs</div>
                   </div>
                 </div>
 
