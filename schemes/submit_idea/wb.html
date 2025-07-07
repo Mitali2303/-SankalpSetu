@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Your Idea - Sankalp Setu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+</head>
+<body class="bg-[#0f0f1a] text-white font-sans min-h-screen p-6">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between p-4 text-white">
+    <h1 class="text-2xl font-bold text-purple-400">💡 Sankalp <span class="text-pink-400">Setu</span></h1>
+    <ul class="flex gap-6">
+      <li><a href="#" class="hover:text-purple-300">Home</a></li>
+      <li><a href="#" class="hover:text-purple-300">Submit Idea</a></li>
+      <li><a href="#" class="hover:text-purple-300">Dashboard</a></li>
+      <li><a href="#" class="hover:text-purple-300">Learning</a></li>
+      <li><a href="#" class="hover:text-purple-300">Schemes</a></li>
+      <li><a href="#" class="hover:text-purple-300">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="flex flex-col md:flex-row gap-8 justify-center mt-10">
+    <!-- Left: Idea Form -->
+    <div class="bg-[#1c1c2e] p-6 rounded-xl w-full md:w-1/2 shadow-lg border border-purple-500">
+      <h2 class="text-xl font-bold mb-4">💡 Your Business Idea</h2>
+      <p class="text-gray-400 mb-4">Describe your business idea in detail. You can type or use voice input.</p>
+
+      <label class="block mb-2">Select Language</label>
+      <select id="languageSelect" class="w-full p-2 rounded-md bg-[#2a2a40] text-white mb-4">
+        <option>🌐 English</option>
+        <option>🇮🇳 Hindi</option>
+        <option>🇮🇳 Telugu</option>
+        <option>🇮🇳 Marathi</option>
+        <option>🇮🇳 Gujarati</option>
+        <option>🇮🇳 Bengali</option>
+        <option>🇮🇳 Tamil</option>
+        <option>🇮🇳 Urdu</option>
+        <option>🇮🇳 Kannada</option>
+        <option>🇮🇳 Odia</option>
+        <option>🇮🇳 Malayalam</option>
+        <option>🇮🇳 Punjabi</option>
+        <option>🇮🇳 Assamese</option>
+        <option>🌐 Manipuri</option>
+        <option>🌐 Sanskrit</option>
+        <option>🌐 Konkani</option>
+        <option>🌐 Sindhi</option>
+      </select>
+
+      <label class="block mb-2">Describe Your Idea</label>
+      <textarea id="ideaInput" class="w-full h-32 p-3 rounded-md bg-[#2a2a40] text-white" placeholder="Type your idea here..."></textarea>
+
+      <div id="keyboard" class="mt-4"></div>
+
+      <div class="flex justify-between mt-3">
+        <button id="voiceInputBtn" class="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+          🎤 Voice Input
+        </button>
+        <button class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-md hover:opacity-90">
+          🚀 Analyze My Idea
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Tips Box -->
+    <div class="bg-[#1c1c2e] p-6 rounded-xl w-full md:w-1/3 shadow-lg border border-purple-500">
+      <h3 class="text-lg font-semibold mb-3 text-purple-300">Tips for Better Analysis</h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+        <li>Include details about your target customers</li>
+        <li>Mention your skills and experience</li>
+        <li>Describe your local market conditions</li>
+        <li>Share your investment capacity</li>
+        <li>Mention any existing resources you have</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const textarea = document.querySelector('#ideaInput');
+      const languageSelect = document.querySelector('#languageSelect');
+      const voiceBtn = document.querySelector('#voiceInputBtn');
+
+      // Voice Recognition Setup
+      let recognition;
+      if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+      } else {
+        alert("Your browser doesn't support voice input. Try using Google Chrome.");
+      }
+
+      voiceBtn.addEventListener('click', () => {
+        const langMap = {
+          english: 'en-US',
+          hindi: 'hi-IN',
+          telugu: 'te-IN',
+          marathi: 'mr-IN',
+          gujarati: 'gu-IN',
+          bengali: 'bn-IN',
+          tamil: 'ta-IN',
+          urdu: 'ur-IN',
+          kannada: 'kn-IN',
+          odia: 'or-IN',
+          malayalam: 'ml-IN',
+          punjabi: 'pa-IN',
+          assamese: 'as-IN'
+        };
+
+        const selectedLang = languageSelect.value.toLowerCase().replace(/[^a-z]/g, '');
+        recognition.lang = langMap[selectedLang] || 'en-US';
+
+        recognition.start();
+        voiceBtn.textContent = '🎤 Listening...';
+
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          textarea.value += transcript + " ";
+          voiceBtn.textContent = '🎤 Voice Input';
+        };
+
+        recognition.onerror = function() {
+          alert("Could not capture voice");
+          voiceBtn.textContent = '🎤 Voice Input';
+        };
+      });
+
+      // Virtual Keyboard
+      const keyboard = new Keyboard({
+        onChange: input => {
+          textarea.value += input;
+        },
+        onKeyPress: button => {
+          if (button === "ENTER") textarea.value += "\n";
+          if (button === "SPACE") textarea.value += " ";
+          if (button === "BACKSPACE") textarea.value = textarea.value.slice(0, -1);
+        },
+        layout: {
+          default: [
+            "q w e r t y u i o p",
+            "a s d f g h j k l",
+            "z x c v b n m",
+            "ENTER SPACE BACKSPACE"
+          ]
+        }
+      });
+
+      // Keyboard Layout Switching
+      languageSelect.addEventListener("change", () => {
+        const lang = languageSelect.value.toLowerCase();
+
+        if (lang.includes("hindi")) {
+          keyboard.setOptions({
+            layout: {
+              default: [
+                "क ख ग घ ङ",
+                "च छ ज झ ञ",
+                "ट ठ ड ढ ण",
+                "ENTER SPACE BACKSPACE"
+              ]
+            }
+          });
+        } else if (lang.includes("telugu")) {
+          keyboard.setOptions({
+            layout: {
+              default: [
+                "అ ఆ ఇ ఈ ఉ",
+                "ఋ ఎ ఏ ఐ ఓ",
+                "క ఖ గ ఘ ఙ",
+                "ENTER SPACE BACKSPACE"
+              ]
+            }
+          });
+        } else if (lang.includes("marathi") || lang.includes("sanskrit")) {
+          keyboard.setOptions({
+            layout: {
+              default: [
+                "अ आ इ ई उ ऊ ऋ ॠ ऌ",
+                "ए ऐ ओ औ अं अः",
+                "क ख ग घ ङ",
+                "ENTER SPACE BACKSPACE"
+              ]
+            }
+          });
+        } else {
+          keyboard.setOptions({
+            layout: {
+              default: [
+                "q w e r t y u i o p",
+                "a s d f g h j k l",
+                "z x c v b n m",
+                "ENTER SPACE BACKSPACE"
+              ]
+            }
+          });
+        }
+      });
+    });
+  </script>
+  <script>
+    const analyzeBtn = document.querySelector(".bg-gradient-to-r");
+
+analyzeBtn.addEventListener("click", async () => {
+  const lang = languageSelect.value;
+  const idea = textarea.value;
+
+  const response = await fetch("http://localhost:8000/api/submit/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ language: lang, idea: idea }),
+  });
+
+  const result = await response.json();
+  alert(result.message || "Submission failed!");
+});
+  </script>
+  <script>
+    <script>
+    document.getElementById("ideaForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const idea = document.getElementById("idea").value;
+      const language = document.getElementById("language").value;
+
+      fetch("http://127.0.0.1:8000/api/submit-idea/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ idea: idea, language: language })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("responseText").textContent = "✅ Idea submitted!";
+      })
+      .catch(error => {
+        console.error("Error submitting:", error);
+        document.getElementById("responseText").textContent = "❌ Failed to submit.";
+      });
+    });
+  </script>
+  </script>
+
+</body>
+</html>
