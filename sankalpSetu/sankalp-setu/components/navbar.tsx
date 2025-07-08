@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Menu, Lightbulb, Users, BookOpen, Award } from "lucide-react"
+import { Menu, Lightbulb, Users, BookOpen, Award, Lock } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export function Navbar() {

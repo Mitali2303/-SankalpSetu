@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+// import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Lightbulb, Phone, Mail, MapPin, Languages, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter()
@@ -127,6 +128,12 @@ export default function LoginPage() {
     }
   }
 
+  // Phone number input: only 10 digits
+  function handlePhoneChange(e: any) {
+    const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+    setSignupData({ ...signupData, phone: val });
+  }
+
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault()
     setSignupLoading(true)
@@ -145,6 +152,18 @@ export default function LoginPage() {
       return
     }
 
+    // Duplicate user check (by phone/email)
+    let users = [];
+    if (typeof window !== "undefined") {
+      users = JSON.parse(localStorage.getItem("users") || "[]");
+      const exists = users.find((u: any) => u.phone === signupData.phone || (signupData.email && u.email === signupData.email));
+      if (exists) {
+        setSignupError("User already exists with this phone or email.");
+        setSignupLoading(false);
+        return;
+      }
+    }
+
     try {
       const response = await fetch("http://127.0.0.1:8000/api/register/", {
         method: "POST",
@@ -161,27 +180,37 @@ export default function LoginPage() {
       if (!response.ok) {
         throw new Error(data.error || "Registration failed")
       }
-      setSignupMessage("Account created successfully! You can now log in.")
+      // Save user to localStorage (users array)
+      if (typeof window !== "undefined") {
+        const userObj = {
+          firstName: signupData.firstName,
+          lastName: signupData.lastName,
+          phone: signupData.phone,
+          email: signupData.email,
+          password: signupData.password,
+        };
+        users.push(userObj);
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("user", JSON.stringify(userObj));
+      }
+      setSignupMessage("Account created successfully! Redirecting...")
       setSignupError(null)
-      setSignupData({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        password: "",
-        language: "hindi",
-        state: "",
-        agreeTerms: false,
-        updates: true,
-      })
-      // Optionally redirect to login
-      // router.push("/login")
+      setTimeout(() => router.replace("/dashboard"), 1000)
     } catch (error: any) {
       setSignupError(error.message || "Registration failed. Please try again.")
     } finally {
       setSignupLoading(false)
     }
   }
+
+  const [displayName, setDisplayName] = useState("Entrepreneur");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      setDisplayName(user.firstName || user.username || user.phone || "Entrepreneur");
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 flex items-center justify-center py-8">
@@ -250,7 +279,7 @@ export default function LoginPage() {
                       <Input
                         id="login-input"
                         type={loginMethod === "phone" ? "tel" : "email"}
-                        placeholder={loginMethod === "phone" ? "+91 98765 43210" : "your@email.com"}
+                        placeholder={loginMethod === "phone" ? "98765 XXXXX" : "your@email.com"}
                         value={loginData.username}
                         onChange={e => setLoginData({ ...loginData, username: e.target.value })}
                       />
@@ -328,12 +357,20 @@ export default function LoginPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="+91 98765 43210" value={signupData.phone} onChange={e => setSignupData({ ...signupData, phone: e.target.value })} />
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="+91 98765 XXXXX"
+                      value={signupData.phone}
+                      onChange={handlePhoneChange}
+                      maxLength={10}
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address (Optional)</Label>
-                    <Input id="email" type="email" placeholder="sanjaya@example.com" value={signupData.email} onChange={e => setSignupData({ ...signupData, email: e.target.value })} />
+                    <Input id="email" type="email" placeholder="abcxyz@example.com" value={signupData.email} onChange={e => setSignupData({ ...signupData, email: e.target.value })} />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

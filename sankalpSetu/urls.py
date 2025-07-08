@@ -4,7 +4,7 @@ from django.urls import path, include
 from  sankalpSetu import views
 
 from rest_framework.routers import DefaultRouter
-from ideas.views import IdeaViewSet, FeedbackViewSet
+from ideas.views import IdeaViewSet, FeedbackViewSet, digilocker_exchange, digilocker_save, verify_password 
 from schemes.views import SchemeViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib.auth.password_validation import validate_password
@@ -24,4 +24,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view()),
+
+    path('digilocker/exchange/',digilocker_exchange),
+    path('digilocker/save/', digilocker_save),
+    path('digilocker/verify-password/', verify_password),
 ]

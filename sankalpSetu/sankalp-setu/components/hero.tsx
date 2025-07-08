@@ -2,10 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { Mic, MessageSquare, Lightbulb, Users, ArrowRight } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 
 const WELCOME_TITLE = "Welcome to Your Entrepreneurial Journey";
-const WELCOME_SUBTITLE = "Join thousands of women entrepreneurs transforming their ideas into successful businesses";
+const WELCOME_SUBTITLE = "Empowering rural women entrepreneurs with AI-powered business guidance in their native language" 
+const WELCOME_BUTTON_TEXT ="Submit Your Idea"
+const WELCOME_BUTTON_TEXT_2 ="Explore Platform"
 
 export function Hero() {
   return (
@@ -22,25 +25,8 @@ export function Hero() {
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl">
               {WELCOME_SUBTITLE}
               </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-                <Link href="/submit-idea">
-                  <Lightbulb className="mr-2 h-5 w-5" />
-                  Submit Your Idea
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-purple-200 dark:border-purple-800 bg-transparent">
-                <Link href="/dashboard">
-                  <Users className="mr-2 h-5 w-5" />
-                  Explore Platform
-                </Link>
-              </Button>
-            </div>
+            </div>   
           </div>
-
           <div className="relative">
             <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 rounded-3xl p-8 backdrop-blur-sm border border-purple-200/50 dark:border-purple-800/50">
               <div className="space-y-6">
