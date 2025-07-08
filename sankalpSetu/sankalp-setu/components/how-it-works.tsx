@@ -1,3 +1,5 @@
+const TEXT="Simple steps to transform your business ideas into reality"
+const HOW="How"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Mic, Brain, FileText, Award } from "lucide-react"
 
@@ -34,11 +36,11 @@ export function HowItWorks() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            How{" "}
+            {HOW}{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">It Works</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Simple steps to transform your business ideas into reality
+            {TEXT}
           </p>
         </div>
 

@@ -1,3 +1,7 @@
+const FEAT_ONE="Comprehensive Support for"
+const FEAT_TWO="Women Entrepreneurs"
+const FEAT_THREE= "Everything you need to transform your business ideas into successful ventures"
+
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -54,13 +58,13 @@ export function Features() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Comprehensive Support for{" "}
+           {FEAT_ONE}{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Women Entrepreneurs
+           {FEAT_TWO}
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to transform your business ideas into successful ventures
+            {FEAT_THREE}
           </p>
         </div>
 

@@ -1,3 +1,11 @@
+const FIRST_WORD="Sankalp"
+const SECOND_WORD="Setu"
+const HELP="Ask for Help"
+const NGOS="Connect with NGOs"
+const MENTOR="AI MENTOR"
+const FEEDBACK="Get instant feedback"
+const SCHEMA="Scheme Matching"
+const SUPPORT="Find government support"
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -19,8 +27,8 @@ export function Hero() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
-                <span className="text-foreground">Sankalp</span>{" "}
-                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Setu</span>
+                <span className="text-foreground">{FIRST_WORD}</span>{" "}
+                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{SECOND_WORD}</span>
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl">
               {WELCOME_SUBTITLE}
@@ -35,8 +43,8 @@ export function Hero() {
                     <Mic className="h-6 w-6 text-purple-600" />
                   </div>
                   <div>
-                    <div className="font-medium">Ask for Help</div>
-                    <div className="text-sm text-muted-foreground">Conecte with NGOs</div>
+                    <div className="font-medium">{HELP}</div>
+                    <div className="text-sm text-muted-foreground">{NGOS}</div>
                   </div>
                 </div>
 
@@ -45,8 +53,8 @@ export function Hero() {
                     <MessageSquare className="h-6 w-6 text-pink-600" />
                   </div>
                   <div>
-                    <div className="font-medium">AI Analysis</div>
-                    <div className="text-sm text-muted-foreground">Get instant feedback</div>
+                    <div className="font-medium">{MENTOR}</div>
+                    <div className="text-sm text-muted-foreground">{FEEDBACK}</div>
                   </div>
                 </div>
 
@@ -55,8 +63,8 @@ export function Hero() {
                     <Users className="h-6 w-6 text-purple-600" />
                   </div>
                   <div>
-                    <div className="font-medium">Scheme Matching</div>
-                    <div className="text-sm text-muted-foreground">Find government support</div>
+                    <div className="font-medium">{SCHEMA}</div>
+                    <div className="text-sm text-muted-foreground">{SUPPORT}</div>
                   </div>
                 </div>
               </div>

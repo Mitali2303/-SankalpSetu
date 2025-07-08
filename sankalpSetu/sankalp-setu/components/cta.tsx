@@ -1,3 +1,9 @@
+const FIRST_CTA= "Ready to Transform Your"
+const SECOND_CTA= "Business Idea?"
+const THIRD_CTA= "Join thousands of women entrepreneurs who are building successful businesses with AI-powered guidance"
+const FOURTH_CTA="Submit Your Idea"
+const FIFTH_CTA= "Explore Platform"
+const SIXTH_CTA= "Available in different Indian languages • Privacy-first approach • No technical skills required"
 "use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,13 +19,13 @@ export function CTA() {
             <div className="max-w-3xl mx-auto space-y-8">
               <div className="space-y-4">
                 <h2 className="text-3xl lg:text-4xl font-bold">
-                  Ready to Transform Your{" "}
+                  {FIRST_CTA}{" "}
                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Business Idea?
+                    {SECOND_CTA}
                   </span>
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  Join thousands of women entrepreneurs who are building successful businesses with AI-powered guidance
+                  {THIRD_CTA}
                 </p>
               </div>
 
@@ -30,7 +36,7 @@ export function CTA() {
                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
                   >
                     <Lightbulb className="mr-2 h-5 w-5" />
-                    Submit Your Idea
+                    {FOURTH_CTA}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
@@ -41,14 +47,14 @@ export function CTA() {
                     className="border-purple-200 dark:border-purple-800 bg-transparent"
                   >
                     <Users className="mr-2 h-5 w-5" />
-                    Explore Platform
+                    {FIFTH_CTA}
                   </Button>
                 </Link>
               </div>
 
               <div className="pt-8 border-t border-purple-200/50 dark:border-purple-800/50">
                 <p className="text-sm text-muted-foreground">
-                  Available in diffrent Indian languages • Privacy-first approach • No technical skills required
+                  {SIXTH_CTA}
                 </p>
               </div>
             </div>
