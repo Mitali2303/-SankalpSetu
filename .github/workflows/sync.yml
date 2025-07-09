@@ -2,7 +2,7 @@ name: Sync Fork with Upstream
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Every hour
+    - cron: '0 * * * *' # Runs every hour
   workflow_dispatch:
 
 jobs:
@@ -10,27 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout your repository
+      - name: Checkout your repo
         uses: actions/checkout@v3
 
-      - name: Set up Git
+      - name: Configure Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Add upstream and fetch
+      - name: Check and add upstream if not exists
         run: |
-          git remote add upstream https://github.com/nehasharma2210/SankalpSetu.git
+          git remote -v
+          if git remote | grep upstream; then
+            echo "Upstream already set"
+          else
+            git remote add upstream https://github.com/nehasharma2210/SankalpSetu.git
+          fi
+
+      - name: Fetch and merge upstream changes
+        run: |
           git fetch upstream
-
-      - name: Merge upstream/main into fork/main
-        run: |
           git checkout main
-          git merge upstream/main --allow-unrelated-histories --no-edit || echo "No changes to merge"
+          git merge upstream/main --allow-unrelated-histories --no-edit || echo "Nothing to merge"
 
-      - name: Push changes back to fork
+      - name: Push changes to forked repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
-
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main || echo "Nothing to push"
