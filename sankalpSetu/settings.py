@@ -136,6 +136,8 @@ STATICFILES_DIRS = [
     BASE_DIR , "static",
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Authentication backends aditional added for JWT
 REST_FRAMEWORK = {
