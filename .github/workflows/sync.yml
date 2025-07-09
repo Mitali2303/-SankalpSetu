@@ -26,4 +26,4 @@ jobs:
           upstream_sync_repo: nehasharma2210/SankalpSetu
 
       - name: Show sync result
-        run: echo "Has new commits: ${{ steps.sync.outputs.has_new_commits }}"
+        run: echo "Has new commits:${{ steps.sync.outputs.has_new_commits }}"
