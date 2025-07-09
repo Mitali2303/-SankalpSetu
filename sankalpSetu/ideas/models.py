@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Idea(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, blank=True, null=True)
     transcript = models.TextField()
-    audio_file = models.FileField(upload_to='voices/')
+    language = models.CharField(max_length=10, default='en')
+    audio_file = models.FileField(upload_to='voices/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
 class Feedback(models.Model):
