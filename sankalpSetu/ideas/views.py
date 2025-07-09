@@ -10,6 +10,10 @@ from django.contrib.auth import authenticate, get_user_model
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import serializers
+from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 class IdeaViewSet(viewsets.ModelViewSet):
@@ -95,3 +99,17 @@ def digilocker_save(request):
             return Response({"profile": serializer.data})
         except DigiLockerProfile.DoesNotExist:  # type: ignore[attr-defined]
             return Response({"profile": None}) 
+
+class UserCreateView(APIView):
+    def post(self, request):
+        data = request.data
+        if User.objects.filter(username=data['phone']).exists() or User.objects.filter(email=data['email']).exists():
+            return Response({'error': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.create_user(
+            username=data['phone'],
+            email=data['email'],
+            password=data['password'],
+            first_name=data['firstName'],
+            last_name=data['lastName']
+        )
+        return Response({'success': True, 'user': user.id}, status=status.HTTP_201_CREATED) 

@@ -36,6 +36,7 @@ export default function LoginPage() {
     phone: "",
     email: "",
     password: "",
+    confirmPassword: "",
     language: "hindi",
     state: "",
     agreeTerms: false,
@@ -82,15 +83,15 @@ export default function LoginPage() {
   ]
 
   async function handleLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setLoginLoading(true)
-    setLoginError(null)
-    setLoginMessage(null)
+    e.preventDefault();
+    setLoginLoading(true);
+    setLoginError(null);
+    setLoginMessage(null);
 
     if (!loginData.username || !loginData.password) {
-      setLoginError("Please fill in all fields")
-      setLoginLoading(false)
-      return
+      setLoginError("Please fill in all fields");
+      setLoginLoading(false);
+      return;
     }
 
     try {
@@ -101,30 +102,36 @@ export default function LoginPage() {
           username: loginData.username,
           password: loginData.password,
         }),
-      })
-      const data = await response.json()
+      });
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || "Login failed")
+        if (data.error === "Invalid credentials.") {
+          setLoginError("Password is wrong");
+        } else if (data.error === "User not found") {
+          setLoginError("User not found");
+        } else {
+          setLoginError(data.error || "Login failed");
+        }
+        setLoginLoading(false);
+        return;
       }
       // Save user info to localStorage
       if (typeof window !== "undefined") {
         if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user))
+          localStorage.setItem("user", JSON.stringify(data.user));
         }
-        if (data.access) {
-          localStorage.setItem("access_token", data.access)
-        }
-        if (data.refresh) {
-          localStorage.setItem("refresh_token", data.refresh)
+        if (data.tokens) {
+          localStorage.setItem("access_token", data.tokens.access);
+          localStorage.setItem("refresh_token", data.tokens.refresh);
         }
       }
-      setLoginMessage("Login successful! Redirecting...")
-      setLoginError(null)
-      setTimeout(() => router.push("/dashboard"), 1000)
+      setLoginMessage("Login successful! Redirecting...");
+      setLoginError(null);
+      setTimeout(() => router.replace("/home"), 1000);
     } catch (error: any) {
-      setLoginError(error.message || "Login failed. Please try again.")
+      setLoginError(error.message || "Login failed. Please try again.");
     } finally {
-      setLoginLoading(false)
+      setLoginLoading(false);
     }
   }
 
@@ -135,33 +142,26 @@ export default function LoginPage() {
   }
 
   async function handleSignup(e: React.FormEvent) {
-    e.preventDefault()
-    setSignupLoading(true)
-    setSignupMessage(null)
-    setSignupError(null)
+    e.preventDefault();
+    setSignupLoading(true);
+    setSignupMessage(null);
+    setSignupError(null);
 
     // Basic validation
-    if (!signupData.firstName || !signupData.lastName || !signupData.phone || !signupData.password) {
-      setSignupError("Please fill all required fields.")
-      setSignupLoading(false)
-      return
+    if (!signupData.firstName || !signupData.lastName || !signupData.phone || !signupData.password || !signupData.confirmPassword) {
+      setSignupError("Please fill all required fields.");
+      setSignupLoading(false);
+      return;
+    }
+    if (signupData.password !== signupData.confirmPassword) {
+      setSignupError("Passwords do not match.");
+      setSignupLoading(false);
+      return;
     }
     if (!signupData.agreeTerms) {
-      setSignupError("You must agree to the Terms of Service.")
-      setSignupLoading(false)
-      return
-    }
-
-    // Duplicate user check (by phone/email)
-    let users = [];
-    if (typeof window !== "undefined") {
-      users = JSON.parse(localStorage.getItem("users") || "[]");
-      const exists = users.find((u: any) => u.phone === signupData.phone || (signupData.email && u.email === signupData.email));
-      if (exists) {
-        setSignupError("User already exists with this phone or email.");
-        setSignupLoading(false);
-        return;
-      }
+      setSignupError("You must agree to the Terms of Service.");
+      setSignupLoading(false);
+      return;
     }
 
     try {
@@ -175,31 +175,18 @@ export default function LoginPage() {
           last_name: signupData.lastName,
           email: signupData.email || "",
         }),
-      })
-      const data = await response.json()
+      });
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || "Registration failed")
+        throw new Error(data.error || "Registration failed");
       }
-      // Save user to localStorage (users array)
-      if (typeof window !== "undefined") {
-        const userObj = {
-          firstName: signupData.firstName,
-          lastName: signupData.lastName,
-          phone: signupData.phone,
-          email: signupData.email,
-          password: signupData.password,
-        };
-        users.push(userObj);
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("user", JSON.stringify(userObj));
-      }
-      setSignupMessage("Account created successfully! Redirecting...")
-      setSignupError(null)
-      setTimeout(() => router.replace("/dashboard"), 1000)
+      setSignupMessage("Account created successfully! Redirecting to login...");
+      setSignupError(null);
+      setTimeout(() => router.replace("/login"), 1000);
     } catch (error: any) {
-      setSignupError(error.message || "Registration failed. Please try again.")
+      setSignupError(error.message || "Registration failed. Please try again.");
     } finally {
-      setSignupLoading(false)
+      setSignupLoading(false);
     }
   }
 
@@ -302,7 +289,7 @@ export default function LoginPage() {
                           className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showPassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                         </Button>
                       </div>
                     </div>
@@ -421,6 +408,28 @@ export default function LoginPage() {
                         placeholder="Create a strong password"
                         value={signupData.password}
                         onChange={e => setSignupData({ ...signupData, password: e.target.value })}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <div className="relative">
+                      <Input
+                        id="confirmPassword"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        value={signupData.confirmPassword}
+                        onChange={e => setSignupData({ ...signupData, confirmPassword: e.target.value })}
                       />
                       <Button
                         type="button"

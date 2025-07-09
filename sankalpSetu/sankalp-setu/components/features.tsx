@@ -18,6 +18,13 @@ export function Features() {
       href: "/ask-for-help",
     },
     {
+      icon: Users,
+      title: "Register Your NGO",
+      description: "Register your NGO to join our trusted network and help more people.",
+      color: "text-purple-600",
+      href: "/ngo/register",
+    },
+    {
       icon: Brain,
       title: "AI-Mentor",
       description: "Submit your idea, get AI insights, and generate a business plan-all in one place.",

@@ -285,6 +285,22 @@ export class DatabaseService {
     return response.json()
   }
 
+  static async authenticateUser(phoneOrEmail: string, password: string) {
+    const response = await fetch(`${API_CONFIG.BASE_URL}/users/authenticate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phoneOrEmail, password }),
+    });
+    if (!response.ok) return null;
+    return response.json();
+  }
+
+  static async findUserByPhoneOrEmail(phone: string, email: string) {
+    const response = await fetch(`${API_CONFIG.BASE_URL}/users/find?phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`);
+    if (!response.ok) return null;
+    return response.json();
+  }
+
   static async getUserById(userId: string) {
     const response = await fetch(`${API_CONFIG.BASE_URL}/users/${userId}`)
     return response.json()

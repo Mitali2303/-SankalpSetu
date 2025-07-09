@@ -41,11 +41,10 @@ sankalp-setu/node_modules/
 
 # Ignore database
 sankalp-setu/db.sqlite3
-
 # Ignore lock files (optional, if you want to keep only one)
 sankalp-setu/package-lock.json
 sankalp-setu/pnpm-lock.yaml
-
+package.json
 # Ignore environment files
 sankalp-setu/.env
 sankalp-setu/.env.*

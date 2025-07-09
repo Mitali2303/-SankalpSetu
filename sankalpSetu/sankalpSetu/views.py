@@ -74,8 +74,9 @@ def login_user(request):
     if not data.get("username") or not data.get("password"):
         return Response({"error": "Username and password are required."}, status=status.HTTP_400_BAD_REQUEST)
     
-    # Authenticate user
+    print("LOGIN TRY:", data["username"], data["password"])
     user = authenticate(username=data["username"], password=data["password"])
+    print("USER:", user)
     
     if user is None:
         return Response({"error": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)

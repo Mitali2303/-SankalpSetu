@@ -1,28 +1,27 @@
-"use client"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Mic, MicOff, Send, Languages, Lightbulb, Brain, FileText } from "lucide-react"
+"use client";
+import * as React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Mic, MicOff, Send, Languages, Lightbulb, Brain, FileText } from "lucide-react";
 
 export default function SubmitIdeaPage() {
-  const [isRecording, setIsRecording] = useState(false)
-  const [idea, setIdea] = useState("")
-  const [language, setLanguage] = useState("english")
-  const [analysisStep, setAnalysisStep] = useState(0)
+  const [isRecording, setIsRecording] = useState(false);
+  const [idea, setIdea] = useState("");
+  const [language, setLanguage] = useState("english");
+  const [analysisStep, setAnalysisStep] = useState(0);
 
   const handleSubmit = () => {
     if (idea.trim()) {
-      setAnalysisStep(1)
-      // Simulate AI analysis progress
-      setTimeout(() => setAnalysisStep(2), 1500)
-      setTimeout(() => setAnalysisStep(3), 3000)
+      setAnalysisStep(1);
+      setTimeout(() => setAnalysisStep(2), 1500);
+      setTimeout(() => setAnalysisStep(3), 3000);
     }
-  }
+  };
 
   const languages = [
     { value: "english", label: "English" },
@@ -33,7 +32,7 @@ export default function SubmitIdeaPage() {
     { value: "marathi", label: "मराठी (Marathi)" },
     { value: "gujarati", label: "ગુજરાતી (Gujarati)" },
     { value: "kannada", label: "ಕನ್ನಡ (Kannada)" },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 py-8">
@@ -83,8 +82,8 @@ export default function SubmitIdeaPage() {
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium">Describe Your Idea</label>
                   <Button
-                    variant={isRecording ? "destructive" : "outline"}
-                    size="sm"
+                    className={isRecording ? "bg-destructive text-white" : "border"}
+                    // size="sm"
                     onClick={() => setIsRecording(!isRecording)}
                   >
                     {isRecording ? (
@@ -113,7 +112,7 @@ export default function SubmitIdeaPage() {
                 <Textarea
                   placeholder="मैं अपने गांव में महिलाओं के लिए सिलाई का काम शुरू करना चाहती हूं... (I want to start a tailoring business for women in my village...)"
                   value={idea}
-                  onChange={(e) => setIdea(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setIdea(e.target.value)}
                   className="min-h-[200px]"
                 />
               </div>
@@ -183,9 +182,7 @@ export default function SubmitIdeaPage() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Feasibility Score</span>
-                      <Badge className="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-400">
-                        8.5/10
-                      </Badge>
+                      <Badge>{/* You can style this if your Badge supports className */}8.5/10</Badge>
                     </div>
 
                     <div className="space-y-2">
@@ -207,7 +204,7 @@ export default function SubmitIdeaPage() {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-transparent" variant="outline">
+                  <Button className="w-full bg-transparent border-purple-200/50 dark:border-purple-800/50">
                     View Detailed Report & Schemes
                   </Button>
                 </CardContent>
@@ -230,5 +227,5 @@ export default function SubmitIdeaPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
