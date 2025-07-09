@@ -211,51 +211,9 @@ export default function DigiLockerCustomForm() {
 
   return (
     <>
-      {/* Google Auth Button always at top */}
-      <div className="flex flex-col items-center my-8">
-        <a
-          href="/api/auth/google" // Replace with your Google OAuth endpoint
-          className="bg-white border border-gray-300 rounded-lg px-6 py-3 flex items-center gap-3 shadow hover:shadow-md transition"
-          style={{ textDecoration: "none" }}
-        >
-          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" className="h-6 w-6" />
-          <span className="font-medium text-gray-700">Sign in with Google</span>
-        </a>
-      </div>
-      {/* If not signed in, show only sign-in and message */}
-      {!user && (
-        <div className="text-center text-lg text-muted-foreground mb-8">Please sign in with Google to fill your DigiLocker profile.</div>
-      )}
-      {/* If signed in and read-only, show profile card */}
-      {user && isReadOnly && (
-        <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 py-8">
-          <div className="container mx-auto px-4 max-w-xl">
-            <div className="border rounded-xl border-purple-200/50 dark:border-purple-800/50 bg-background p-8 text-center space-y-8 shadow-lg">
-              <h1 className="text-3xl font-bold mb-2">Your DigiLocker Profile</h1>
-              <div className="text-left space-y-2 text-base">
-                <div><b>Full Name:</b> {form.fullName}</div>
-                <div><b>Date of Birth:</b> {form.dob}</div>
-                <div><b>Gender:</b> {form.gender}</div>
-                <div><b>Aadhaar Number:</b> {maskAadhaar(form.aadhaar)}</div>
-                <div><b>Mobile Number:</b> {maskPhone(form.mobile)}</div>
-                <div><b>Email ID:</b> {maskEmail(form.email)}</div>
-                <div><b>Educational Qualification:</b> {form.education}</div>
-                <div><b>Location:</b> {form.location}</div>
-                <div><b>Address:</b> {form.address}</div>
-              </div>
-              <div className="text-xs text-muted-foreground mt-4">You can only submit your DigiLocker profile once. For changes, contact support.</div>
-              <button
-                className="mt-6 px-6 py-2 rounded bg-primary text-white font-semibold hover:bg-primary-foreground transition"
-                onClick={() => router.push("/")}
-              >
-                Back
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-      {/* If signed in and not read-only, show the form */}
-      {user && !isReadOnly && (
+      {/* Remove Google Auth Button and sign-in message */}
+      {/* Only show the form and profile functionality */}
+      {(!isReadOnly) && (
         <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 py-8">
           <div className="container mx-auto px-4 max-w-xl">
             <Card className="border-purple-200/50 dark:border-purple-800/50">
@@ -416,6 +374,34 @@ export default function DigiLockerCustomForm() {
                 )}
               </CardContent>
             </Card>
+          </div>
+        </section>
+      )}
+      {/* If signed in and read-only, show profile card */}
+      {isReadOnly && (
+        <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-purple-50/20 dark:to-purple-950/20 py-8">
+          <div className="container mx-auto px-4 max-w-xl">
+            <div className="border rounded-xl border-purple-200/50 dark:border-purple-800/50 bg-background p-8 text-center space-y-8 shadow-lg">
+              <h1 className="text-3xl font-bold mb-2">Your DigiLocker Profile</h1>
+              <div className="text-left space-y-2 text-base">
+                <div><b>Full Name:</b> {form.fullName}</div>
+                <div><b>Date of Birth:</b> {form.dob}</div>
+                <div><b>Gender:</b> {form.gender}</div>
+                <div><b>Aadhaar Number:</b> {maskAadhaar(form.aadhaar)}</div>
+                <div><b>Mobile Number:</b> {maskPhone(form.mobile)}</div>
+                <div><b>Email ID:</b> {maskEmail(form.email)}</div>
+                <div><b>Educational Qualification:</b> {form.education}</div>
+                <div><b>Location:</b> {form.location}</div>
+                <div><b>Address:</b> {form.address}</div>
+              </div>
+              <div className="text-xs text-muted-foreground mt-4">You can only submit your DigiLocker profile once. For changes, contact support.</div>
+              <button
+                className="mt-6 px-6 py-2 rounded bg-primary text-white font-semibold hover:bg-primary-foreground transition"
+                onClick={() => router.push("/")}
+              >
+                Back
+              </button>
+            </div>
           </div>
         </section>
       )}

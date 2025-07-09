@@ -127,7 +127,7 @@ export default function LoginPage() {
       }
       setLoginMessage("Login successful! Redirecting...");
       setLoginError(null);
-      setTimeout(() => router.replace("/home"), 1000);
+      setTimeout(() => router.replace("/dashboard"), 1000);
     } catch (error: any) {
       setLoginError(error.message || "Login failed. Please try again.");
     } finally {
